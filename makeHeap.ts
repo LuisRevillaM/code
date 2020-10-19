@@ -1,3 +1,5 @@
+import { swap } from './util';
+
 function heapElementParentIndex(key:number) {
 	if (key === 0) return -1;
 	
@@ -32,14 +34,6 @@ function bubbleUp(array:number[], key:number, heapType:heapType) {
     swap(array, key, parentKey);
     bubbleUp(array, parentKey, heapType);
   }
-}
-
-function swap(array:number[], key1:number, key2:number) {
-  const el1 = array[key1];
-  const el2 = array[key2];
-
-  array[key2] = el1;
-  array[key1] = el2;
 }
 
 function initHeap() {
