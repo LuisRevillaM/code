@@ -1,4 +1,3 @@
-import findThreeLargestNumbers from './threeLargestNunbers';
 import { swap } from './util';
 
 export function selectionSort(array) {
