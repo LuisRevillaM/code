@@ -13,7 +13,7 @@ function quickSort(array, low, high) {
 }
 
 function partition(array, low, high) {
-  let p = high; // partition index is the last
+  let p = high;
   let firstHigh = low;
 
   for (let i = low; i < high; i++) {
