@@ -1,4 +1,4 @@
-export function swap(array:number[], key1:number, key2:number) {
+export function swap(array: number[], key1: number, key2: number) {
   if (key1 === key2) {
     return;
   }
