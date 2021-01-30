@@ -44,6 +44,10 @@ class DoublyLinkedList {
   }
 
   insertBefore(node, nodeToInsert) {
+    if (this.containsNode(nodeToInsert, this.head)) {
+      this.remove(nodeToInsert)
+    }
+
     nodeToInsert.prev = node.prev;
     
     nodeToInsert.next = node;
@@ -54,6 +58,10 @@ class DoublyLinkedList {
   }
 
   insertAfter(node, nodeToInsert) {
+    if (this.containsNode(nodeToInsert, this.head)) {
+      this.remove(nodeToInsert)
+    }
+
     nodeToInsert.next = node.next;
 
     node.next.prev = nodeToInsert;
@@ -72,10 +80,44 @@ class DoublyLinkedList {
   }
 
   remove(node) {
-    // Write your code here.
+    if (!this.containsNode(node, this.head)) return;
+
+    if (node.prev) {
+      node.prev.next = node.next;
+    }
+    
+    if (node.next) {
+      node.next.prev = node.prev;
+    }
+
+    if (this.head === node) {
+      this.head === node.next;
+    }
+    
+    if (this.tail === node) {
+      this.tail === node.prev;
+    }
   }
 
   containsNodeWithValue(value) {
     // Write your code here.
+  }
+
+  containsNode(node, head) {
+    if (!head) return false;
+
+    if (this.areNodesEqual(node, head)) return true
+    
+    return this.containsNode(node, head.next);
+  }
+
+  areNodesEqual(node1, node2) {
+    if (!(node1.value === node2.value)) return false;
+
+    if (node1.next === node2.next && node1.prev === node2.prev) {
+      return true
+    }
+
+    return false;
   }
 }
