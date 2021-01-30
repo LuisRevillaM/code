@@ -100,10 +100,19 @@ class DoublyLinkedList {
   }
 
   containsNodeWithValue(value) {
-    // Write your code here.
+    return this.findValueInList(this.head, value);
   }
+    
+  findValueInList(head:ListNode, value) {
+    if (head.value === value) return true;
 
-  containsNode(node, head) {
+    if (!head.next) return false;
+  
+    return this.findValueInList(head.next, value);
+  }
+    
+
+  containsNode(node:ListNode, head:ListNode) {
     if (!head) return false;
 
     if (this.areNodesEqual(node, head)) return true
