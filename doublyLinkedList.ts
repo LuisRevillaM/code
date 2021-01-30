@@ -44,11 +44,23 @@ class DoublyLinkedList {
   }
 
   insertBefore(node, nodeToInsert) {
-    // Write your code here.
+    nodeToInsert.prev = node.prev;
+    
+    nodeToInsert.next = node;
+    
+    node.prev.next = nodeToInsert;
+    
+    node.prev = nodeToInsert;
   }
 
   insertAfter(node, nodeToInsert) {
-    // Write your code here.
+    nodeToInsert.next = node.next;
+
+    node.next.prev = nodeToInsert;
+
+    nodeToInsert.prev = node;
+
+    node.next = nodeToInsert;
   }
 
   insertAtPosition(position, nodeToInsert) {
