@@ -72,11 +72,36 @@ class DoublyLinkedList {
   }
 
   insertAtPosition(position, nodeToInsert) {
-    // Write your code here.
+    if (this.containsNode(nodeToInsert, this.head)) {
+      this.remove(nodeToInsert)
+    }
+
+    let current = this.head;
+
+    for (let counter = 1; current; counter++) {
+      if (counter === position) {
+        this.insertBefore(current, nodeToInsert);
+        current = null;
+      } else {
+        current = current.next;
+      }
+    }
   }
 
   removeNodesWithValue(value) {
-    // Write your code here.
+    this.findAndRemove(this.head, value);
+  }
+
+  findAndRemove(head, value) {
+    if (!head.next) {
+      return;
+    }
+
+    if (head.value === value) {
+      this.remove(head);
+    }
+
+    this.findAndRemove(head.next, value);
   }
 
   remove(node) {
@@ -100,15 +125,15 @@ class DoublyLinkedList {
   }
 
   containsNodeWithValue(value) {
-    return this.findValueInList(this.head, value);
+    return this.isValueInList(this.head, value);
   }
     
-  findValueInList(head:ListNode, value) {
+  isValueInList(head:ListNode, value) {
     if (head.value === value) return true;
 
     if (!head.next) return false;
   
-    return this.findValueInList(head.next, value);
+    return this.isValueInList(head.next, value);
   }
     
 
