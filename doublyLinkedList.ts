@@ -77,7 +77,9 @@ class DoublyLinkedList {
 
     nodeToInsert.next = node.next;
 
-    node.next.prev = nodeToInsert;
+    if (node.next) {
+      node.next.prev = nodeToInsert;
+    }
 
     nodeToInsert.prev = node;
 
