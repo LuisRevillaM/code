@@ -27,6 +27,7 @@ class DoublyLinkedList {
 
   setHead(node) {
     if (!this.head) {
+      this.tail = node;
       this.head = node;
       return;
     }
@@ -43,6 +44,7 @@ class DoublyLinkedList {
   setTail(node) {
     if (!this.tail) {
       this.tail = node;
+      this.head = node;
       return;
     }
 
