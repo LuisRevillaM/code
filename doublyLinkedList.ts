@@ -41,10 +41,14 @@ class DoublyLinkedList {
   }
 
   setTail(node) {
-    // to set the tail, we must take the tail, make its next the new node.
-    // make the new nodes prev the tail. 
-    // then change the tail
+    if (!this.tail) {
+      this.tail = node;
+      return;
+    }
 
+    if (this.containsNode(node, this.head)) {
+      this.remove(node);
+    }
     this.tail.next = node;
     node.prev = this.tail;
     this.tail = node;
