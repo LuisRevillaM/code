@@ -25,15 +25,18 @@ class DoublyLinkedList {
     this.tail = null;
   }
 
-  setHead(node) {
+  setHead(node:ListNode) {
     if (!this.head) {
-      this.tail = node;
       this.head = node;
+      this.tail = node;
       return;
     }
+
     if (this.containsNode(node, this.head)) {
+
       this.remove(node);
     }
+
     this.head.prev = node;
 
     node.next = this.head;
@@ -41,22 +44,23 @@ class DoublyLinkedList {
     this.head = node;
   }
 
-  setTail(node) {
+  setTail(node:ListNode) {
+    if (this.containsNode(node, this.head)) {
+      this.remove(node);
+    }
+
     if (!this.tail) {
       this.tail = node;
       this.head = node;
       return;
     }
 
-    if (this.containsNode(node, this.head)) {
-      this.remove(node);
-    }
     this.tail.next = node;
     node.prev = this.tail;
     this.tail = node;
   }
 
-  insertBefore(node, nodeToInsert) {
+  insertBefore(node:ListNode, nodeToInsert:ListNode) {
     if (this.containsNode(nodeToInsert, this.head)) {
       this.remove(nodeToInsert)
     }
@@ -69,19 +73,20 @@ class DoublyLinkedList {
 
     nodeToInsert.next = node;
 
-    node.prev.next = nodeToInsert;
+    if (node.prev) {
+      node.prev.next = nodeToInsert;
+    }
 
     node.prev = nodeToInsert;
   }
 
-  insertAfter(node, nodeToInsert) {
+  insertAfter(node:ListNode, nodeToInsert:ListNode) {
     if (this.containsNode(nodeToInsert, this.head)) {
       this.remove(nodeToInsert)
     }
     if (this.areNodesEqual(this.tail, node)) {
       this.tail = nodeToInsert;
     }
-
     nodeToInsert.next = node.next;
 
     if (node.next) {
@@ -93,14 +98,14 @@ class DoublyLinkedList {
     node.next = nodeToInsert;
   }
 
-  insertAtPosition(position, nodeToInsert) {
+  insertAtPosition(position:number, nodeToInsert:ListNode) {
     if (this.containsNode(nodeToInsert, this.head)) {
       this.remove(nodeToInsert)
     }
 
     let current = this.head;
 
-    for (let counter = 1; current; counter++) {
+    for (let counter = 1; Boolean(current) == true; counter++) {
       if (counter === position) {
         this.insertBefore(current, nodeToInsert);
         current = null;
@@ -110,24 +115,24 @@ class DoublyLinkedList {
     }
   }
 
-  removeNodesWithValue(value) {
+  removeNodesWithValue(value:any) {
     this.findAndRemove(this.head, value);
   }
 
-  findAndRemove(head, value) {
-    if (!head.next) {
-      return;
-    }
+  findAndRemove(head:ListNode, value) {
+    if (!head) return;
+
+    const next = head.next;
 
     if (head.value === value) {
       this.remove(head);
     }
 
-    this.findAndRemove(head.next, value);
+    this.findAndRemove(next, value);
   }
-
-  remove(node) {
+  remove(node:ListNode) {
     if (!this.containsNode(node, this.head)) return;
+
 
     if (node.prev) {
       node.prev.next = node.next;
@@ -138,11 +143,11 @@ class DoublyLinkedList {
     }
 
     if (this.head === node) {
-      this.head === node.next;
+      this.head = node.next;
     }
 
     if (this.tail === node) {
-      this.tail === node.prev;
+      this.tail = node.prev;
     }
 
     node.prev = null;
@@ -150,19 +155,19 @@ class DoublyLinkedList {
   }
 
   containsNodeWithValue(value) {
-    return this.isValueInList(this.head, value);
+    return this.findValueInList(this.head, value);
   }
 
-  isValueInList(head: ListNode, value) {
+  findValueInList(head:ListNode, value) {
     if (head.value === value) return true;
 
     if (!head.next) return false;
 
-    return this.isValueInList(head.next, value);
+    return this.findValueInList(head.next, value);
   }
 
+  containsNode(node:ListNode, head) {
 
-  containsNode(node: ListNode, head: ListNode) {
     if (!head) return false;
 
     if (this.areNodesEqual(node, head)) return true
@@ -170,8 +175,8 @@ class DoublyLinkedList {
     return this.containsNode(node, head.next);
   }
 
-  areNodesEqual(node1, node2) {
-    if (!(node1.value === node2.value)) return false;
+  areNodesEqual(node1:ListNode, node2:ListNode) {
+    if (node1.value !== node2.value) return false;
 
     if (node1.next === node2.next && node1.prev === node2.prev) {
       return true
