@@ -25,7 +25,7 @@ class DoublyLinkedList {
     this.tail = null;
   }
 
-  setHead(node:ListNode) {
+  setHead(node: ListNode) {
     if (!this.head) {
       this.head = node;
       this.tail = node;
@@ -44,7 +44,7 @@ class DoublyLinkedList {
     this.head = node;
   }
 
-  setTail(node:ListNode) {
+  setTail(node: ListNode) {
     if (this.containsNode(node, this.head)) {
       this.remove(node);
     }
@@ -60,7 +60,7 @@ class DoublyLinkedList {
     this.tail = node;
   }
 
-  insertBefore(node:ListNode, nodeToInsert:ListNode) {
+  insertBefore(node: ListNode, nodeToInsert: ListNode) {
     if (this.containsNode(nodeToInsert, this.head)) {
       this.remove(nodeToInsert)
     }
@@ -80,7 +80,7 @@ class DoublyLinkedList {
     node.prev = nodeToInsert;
   }
 
-  insertAfter(node:ListNode, nodeToInsert:ListNode) {
+  insertAfter(node: ListNode, nodeToInsert: ListNode) {
     if (this.containsNode(nodeToInsert, this.head)) {
       this.remove(nodeToInsert)
     }
@@ -98,9 +98,15 @@ class DoublyLinkedList {
     node.next = nodeToInsert;
   }
 
-  insertAtPosition(position:number, nodeToInsert:ListNode) {
-    if (this.containsNode(nodeToInsert, this.head)) {
-      this.remove(nodeToInsert)
+  insertAtPosition(position: number, nodeToInsert: ListNode) {
+    if (!this.head) {
+      if (position !== 1) {
+        return;
+      } else {
+        this.setHead(nodeToInsert);
+
+        return;
+      }
     }
 
     let current = this.head;
@@ -115,11 +121,11 @@ class DoublyLinkedList {
     }
   }
 
-  removeNodesWithValue(value:any) {
+  removeNodesWithValue(value: any) {
     this.findAndRemove(this.head, value);
   }
 
-  findAndRemove(head:ListNode, value) {
+  findAndRemove(head: ListNode, value) {
     if (!head) return;
 
     const next = head.next;
@@ -130,7 +136,7 @@ class DoublyLinkedList {
 
     this.findAndRemove(next, value);
   }
-  remove(node:ListNode) {
+  remove(node: ListNode) {
     if (!this.containsNode(node, this.head)) return;
 
 
@@ -158,7 +164,7 @@ class DoublyLinkedList {
     return this.findValueInList(this.head, value);
   }
 
-  findValueInList(head:ListNode, value) {
+  findValueInList(head: ListNode, value) {
     if (head.value === value) return true;
 
     if (!head.next) return false;
@@ -166,7 +172,7 @@ class DoublyLinkedList {
     return this.findValueInList(head.next, value);
   }
 
-  containsNode(node:ListNode, head) {
+  containsNode(node: ListNode, head) {
 
     if (!head) return false;
 
@@ -175,7 +181,7 @@ class DoublyLinkedList {
     return this.containsNode(node, head.next);
   }
 
-  areNodesEqual(node1:ListNode, node2:ListNode) {
+  areNodesEqual(node1: ListNode, node2: ListNode) {
     if (node1.value !== node2.value) return false;
 
     if (node1.next === node2.next && node1.prev === node2.prev) {
