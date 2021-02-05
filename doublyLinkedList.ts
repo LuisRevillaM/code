@@ -25,19 +25,26 @@ class DoublyLinkedList {
     this.tail = null;
   }
 
-  setHead(node) {	
-	this.head.prev = node;
-	
-	node.next = this.head;
-    
-	this.head = node;
+  setHead(node) {
+    if (!this.head) {
+      this.head = node;
+      return;
+    }
+    if (this.containsNode(node, this.head)) {
+      this.remove(node);
+    }
+    this.head.prev = node;
+
+    node.next = this.head;
+
+    this.head = node;
   }
 
   setTail(node) {
     // to set the tail, we must take the tail, make its next the new node.
     // make the new nodes prev the tail. 
     // then change the tail
-    
+
     this.tail.next = node;
     node.prev = this.tail;
     this.tail = node;
@@ -49,11 +56,11 @@ class DoublyLinkedList {
     }
 
     nodeToInsert.prev = node.prev;
-    
+
     nodeToInsert.next = node;
-    
+
     node.prev.next = nodeToInsert;
-    
+
     node.prev = nodeToInsert;
   }
 
@@ -110,7 +117,7 @@ class DoublyLinkedList {
     if (node.prev) {
       node.prev.next = node.next;
     }
-    
+
     if (node.next) {
       node.next.prev = node.prev;
     }
@@ -118,30 +125,33 @@ class DoublyLinkedList {
     if (this.head === node) {
       this.head === node.next;
     }
-    
+
     if (this.tail === node) {
       this.tail === node.prev;
     }
+
+    node.prev = null;
+    node.next = null;
   }
 
   containsNodeWithValue(value) {
     return this.isValueInList(this.head, value);
   }
-    
-  isValueInList(head:ListNode, value) {
+
+  isValueInList(head: ListNode, value) {
     if (head.value === value) return true;
 
     if (!head.next) return false;
-  
+
     return this.isValueInList(head.next, value);
   }
-    
 
-  containsNode(node:ListNode, head:ListNode) {
+
+  containsNode(node: ListNode, head: ListNode) {
     if (!head) return false;
 
     if (this.areNodesEqual(node, head)) return true
-    
+
     return this.containsNode(node, head.next);
   }
 
