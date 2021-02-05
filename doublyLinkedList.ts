@@ -61,6 +61,10 @@ class DoublyLinkedList {
       this.remove(nodeToInsert)
     }
 
+    if (this.areNodesEqual(this.head, node)) {
+      this.head = nodeToInsert;
+    }
+
     nodeToInsert.prev = node.prev;
 
     nodeToInsert.next = node;
@@ -73,6 +77,9 @@ class DoublyLinkedList {
   insertAfter(node, nodeToInsert) {
     if (this.containsNode(nodeToInsert, this.head)) {
       this.remove(nodeToInsert)
+    }
+    if (this.areNodesEqual(this.tail, node)) {
+      this.tail = nodeToInsert;
     }
 
     nodeToInsert.next = node.next;
