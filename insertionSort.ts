@@ -1,6 +1,6 @@
 import { swap } from './util';
 
-export function insersionSort(array) {
+export function insertionSort(array) {
   let j;
   for(let i = 1; i<array.length; i++) {
     j=i;
